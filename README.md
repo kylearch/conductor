@@ -101,6 +101,67 @@ npm run build
 npm run preview
 ```
 
+## Deployment
+
+This app is a static frontend application with no backend requirements, making it perfect for free static hosting services.
+
+### GitHub Pages (Recommended)
+
+**Automatic Deployment (Recommended)**
+
+The repository is configured with GitHub Actions for automatic deployment:
+
+1. Go to your GitHub repository settings
+2. Navigate to **Settings → Pages**
+3. Under "Build and deployment":
+   - Source: Select **GitHub Actions**
+4. Push to the `main` branch and the site will automatically deploy
+5. Your site will be available at: `https://kylearch.github.io/conductor/`
+
+**Manual Deployment**
+
+```bash
+# Build the project
+npm run build
+
+# The dist/ folder contains your static site
+# Push the dist folder to the gh-pages branch
+npx gh-pages -d dist
+```
+
+### Other Hosting Options
+
+**Netlify**
+1. Connect your GitHub repository to Netlify
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+4. Deploy automatically on push
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/kylearch/conductor)
+
+**Vercel**
+1. Import your GitHub repository in Vercel
+2. Framework Preset: Vite
+3. Build command: `npm run build`
+4. Output directory: `dist`
+5. Deploy automatically on push
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/kylearch/conductor)
+
+**Cloudflare Pages**
+1. Connect your GitHub repository
+2. Build command: `npm run build`
+3. Build output directory: `dist`
+4. Deploy automatically on push
+
+### Important Notes for Deployment
+
+- ✅ **No backend needed** - Everything runs in the browser
+- ✅ **API keys are safe** - Stored only in browser localStorage
+- ✅ **CORS-friendly** - All LLM APIs support CORS for browser requests
+- ⚠️ **HTTPS required** - LLM providers require secure connections (all hosting options provide HTTPS)
+- 💡 **Environment variables not needed** - Users configure their own API keys in the UI
+
 ## Usage
 
 ### Quick Start with AI (Recommended)
