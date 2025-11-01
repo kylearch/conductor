@@ -81,6 +81,12 @@ Four built-in presets to get started quickly:
 - Delete unwanted generations
 - Timestamp tracking
 
+## Live Demo
+
+🌐 **[Try it live on GitHub Pages](https://kylearch.github.io/conductor/)**
+
+The application is automatically deployed to GitHub Pages when changes are pushed to the main branch.
+
 ## Installation
 
 ```bash
@@ -383,6 +389,32 @@ For context: Generating 10 variations typically uses 2,000-5,000 tokens, costing
 4. **Generate Multiple Variations**: Different structural approaches can surprise you
 5. **Iterate**: Use a generated variation as a starting point, then manually refine
 6. **Set Tags First**: Style/exclude tags help guide AI generation
+
+## Deployment
+
+### GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages. When you push to the `main` branch, a GitHub Actions workflow automatically builds and deploys the application.
+
+#### Setup GitHub Pages (One-time)
+
+1. Go to your repository settings on GitHub
+2. Navigate to **Settings > Pages**
+3. Under **Source**, select **GitHub Actions**
+4. The site will be available at `https://kylearch.github.io/conductor/`
+
+#### Manual Deployment
+
+The deployment happens automatically, but you can also trigger it manually:
+
+1. Go to the **Actions** tab in your GitHub repository
+2. Select the **Deploy to GitHub Pages** workflow
+3. Click **Run workflow**
+
+The workflow:
+- Installs dependencies
+- Builds the production version
+- Deploys to GitHub Pages
 
 ## Contributing
 
