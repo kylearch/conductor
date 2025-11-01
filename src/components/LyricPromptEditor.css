@@ -1,0 +1,54 @@
+.lyric-prompt-editor {
+  margin-bottom: 1.5rem;
+}
+
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.prompt-header label {
+  margin: 0;
+}
+
+.generate-prompt-btn {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  font-size: 0.9em;
+  padding: 0.4rem 0.8rem;
+}
+
+.generate-prompt-btn:hover {
+  background-color: #535bf2;
+}
+
+.prompt-hint {
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+.lyric-textarea {
+  width: 100%;
+  min-height: 200px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95em;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.prompt-stats {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9em;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+.prompt-stats span {
+  display: flex;
+  align-items: center;
+}
