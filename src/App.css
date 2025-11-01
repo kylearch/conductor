@@ -1,0 +1,142 @@
+.app {
+  min-height: 100vh;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #646cff;
+}
+
+.app-subtitle {
+  font-size: 1.1em;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+.app-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.main-panel {
+  min-width: 0;
+}
+
+.sidebar {
+  min-width: 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+}
+
+.presets-section {
+  margin: 1.5rem 0;
+}
+
+.presets-section h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.preset-btn {
+  background-color: transparent;
+  border: 2px solid #646cff;
+  color: #646cff;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  transition: all 0.2s;
+  font-size: 0.95em;
+}
+
+.preset-btn:hover {
+  background-color: #646cff;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.batch-generation {
+  margin-bottom: 1.5rem;
+}
+
+.batch-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.batch-controls input {
+  width: 100px;
+}
+
+.batch-hint {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.generate-btn {
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.generate-btn:hover:not(:disabled) {
+  background-color: #45a049;
+  border-color: #45a049;
+}
+
+.generate-btn:disabled {
+  background-color: #666;
+}
+
+.validation-message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: rgba(255, 152, 0, 0.1);
+  border-left: 3px solid #ff9800;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+@media (max-width: 1024px) {
+  .app-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+  
+  .app-header h1 {
+    font-size: 1.8em;
+  }
+  
+  .presets-grid {
+    grid-template-columns: 1fr;
+  }
+}
