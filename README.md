@@ -4,6 +4,30 @@ A comprehensive web application for generating children's audio content, includi
 
 ## Features
 
+### 🤖 AI-Powered Automation (NEW!)
+
+Generate complete music structures automatically using LLMs! The AI Generator provides easy-to-use "tuning knobs" for bulk prompt generation:
+
+- **Multiple LLM Provider Support**:
+  - OpenAI (GPT-4o, GPT-4o-mini, GPT-3.5-turbo)
+  - Anthropic (Claude 3.5 Sonnet, Claude 3.5 Haiku)
+  - Ollama (Local models: Llama 3.2, Mistral, etc.)
+  - OpenRouter (Access to multiple providers)
+
+- **AI Configuration Panel**:
+  - Secure API key storage (saved locally)
+  - Model selection for each provider
+  - Connection testing
+  - Local LLM support via Ollama
+
+- **AI Prompt Generator with Smart Controls**:
+  - **Title & Description Input**: Brief description and AI generates the rest
+  - **Duration Slider**: Adjust target duration (30s-5min), AI creates appropriate sections
+  - **Instrument Selector**: Pick instruments, AI builds full prompts around them
+  - **Bulk Generation**: Create 1-5 variations at once with different approaches
+  - **Variation Preview**: See all generated options before applying
+  - **One-Click Apply**: Select and apply any variation instantly
+
 ### Core Functionality
 - **Brand Themes**: Generate iconic intro music with narration beds
 - **Lullabies**: Create extended, soft, peaceful tracks for children
@@ -79,13 +103,63 @@ npm run preview
 
 ## Usage
 
-### Quick Start
+### Quick Start with AI (Recommended)
+
+1. **Configure AI** (one-time setup):
+   - Expand the "AI Configuration" panel
+   - Select your LLM provider (OpenAI, Anthropic, Ollama, or OpenRouter)
+   - Enter your API key (or set up local Ollama)
+   - Click "Test Connection" to verify it works
+
+2. **Generate with AI**:
+   - Expand the "AI Prompt Generator" panel
+   - Enter a brief description (e.g., "A playful bedtime song about stars")
+   - Adjust the duration slider to your target length
+   - Select instruments you want to use
+   - Choose how many variations to generate (1-5)
+   - Click "Generate with AI"
+   - Review the variations and click "Use This Variation" on your favorite
+
+3. **Refine and Generate**:
+   - The selected variation automatically populates your structure and prompt
+   - Adjust style/exclude tags if needed
+   - Click "Generate Music" to save the configuration
+
+### Manual Quick Start
 
 1. **Choose a Preset**: Click on one of the four preset buttons to load pre-configured settings
 2. **Customize Tags**: Add style tags (what you want) and exclude tags (what you don't want)
 3. **Build Structure**: Use the Structure Builder to add, remove, or rearrange sections
 4. **Edit Prompt**: Refine the lyric prompt or auto-generate it from your structure
 5. **Generate**: Click the Generate button to create your music configuration
+
+### AI Generation Examples
+
+**Example 1: Brand Theme**
+```
+Description: "An energetic intro for a science show for kids"
+Duration: 60 seconds
+Instruments: kalimba hook, xylophone, bright synth
+Variations: 3
+
+AI generates multiple options with different structures:
+- Variation 1: Hook-focused with quick intro
+- Variation 2: Verse-heavy with gradual build
+- Variation 3: Balanced with memorable chorus
+```
+
+**Example 2: Lullaby**
+```
+Description: "Peaceful ocean-themed bedtime music"
+Duration: 3 minutes (180 seconds)
+Instruments: soft piano, ambient pad, gentle strings, music box
+Variations: 3
+
+AI generates extended structures with:
+- Appropriate section counts (~12 sections)
+- Instrument variety and rotation
+- Soothing progressions
+```
 
 ### Creating a Brand Theme
 
@@ -157,7 +231,13 @@ conductor/
 │   │   ├── LyricPromptEditor.tsx  # Prompt editor with auto-generation
 │   │   ├── LyricPromptEditor.css
 │   │   ├── GenerationHistory.tsx  # History and rating system
-│   │   └── GenerationHistory.css
+│   │   ├── GenerationHistory.css
+│   │   ├── AIConfig.tsx           # AI provider configuration (NEW)
+│   │   ├── AIConfig.css
+│   │   ├── AIGenerator.tsx        # AI prompt generator with controls (NEW)
+│   │   └── AIGenerator.css
+│   ├── services/
+│   │   └── llmService.ts          # LLM API integration (NEW)
 │   ├── App.tsx                    # Main application component
 │   ├── App.css
 │   ├── types.ts                   # TypeScript type definitions
@@ -238,14 +318,71 @@ upbeat, playful, energetic, gentle, soft, soothing, calm, peaceful, dreamy, frie
 ### Exclude Tag Suggestions
 dark, sad, aggressive, loud, fast, harsh, complex, long
 
+## AI Configuration Guide
+
+### OpenAI Setup
+
+1. Visit [platform.openai.com](https://platform.openai.com)
+2. Create an account or sign in
+3. Navigate to API Keys
+4. Create a new API key
+5. Copy the key and paste it into the AI Configuration panel
+6. Recommended models: `gpt-4o-mini` (fast and affordable) or `gpt-4o` (higher quality)
+
+### Anthropic Setup
+
+1. Visit [console.anthropic.com](https://console.anthropic.com)
+2. Create an account or sign in
+3. Navigate to API Keys
+4. Create a new API key
+5. Copy the key and paste it into the AI Configuration panel
+6. Recommended models: `claude-3-5-sonnet-20241022` (balanced) or `claude-3-5-haiku-20241022` (fast)
+
+### Ollama Setup (Local/Free)
+
+1. Install Ollama from [ollama.ai](https://ollama.ai)
+2. Run Ollama locally (it starts automatically after installation)
+3. Pull a model: `ollama pull llama3.2` or `ollama pull mistral`
+4. In the app, select "Ollama" as provider
+5. Default base URL is `http://localhost:11434` (usually correct)
+6. No API key needed!
+7. Best for: Privacy-focused users or those wanting free local generation
+
+### OpenRouter Setup
+
+1. Visit [openrouter.ai](https://openrouter.ai)
+2. Create an account or sign in
+3. Add credits to your account
+4. Generate an API key
+5. Copy the key and paste it into the AI Configuration panel
+6. OpenRouter gives access to many models through one API
+
+### Cost Considerations
+
+- **OpenAI GPT-4o-mini**: ~$0.15 per 1M input tokens (very affordable)
+- **Anthropic Claude 3.5 Haiku**: ~$0.80 per 1M input tokens (affordable)
+- **Anthropic Claude 3.5 Sonnet**: ~$3 per 1M input tokens (premium)
+- **Ollama**: Free (runs locally on your computer)
+
+For context: Generating 10 variations typically uses 2,000-5,000 tokens, costing $0.0003-$0.015 with GPT-4o-mini.
+
 ## Best Practices
 
+### General Tips
 1. **Start with a Preset**: Use presets as templates and customize from there
 2. **Balance Sections**: More sections = longer tracks, but maintain musical flow
 3. **Use Appropriate Tags**: Match style tags to your category (Brand Theme vs Lullaby)
 4. **Exclude Strategically**: Exclude tags help refine the mood more than adding style tags
 5. **Test Variations**: Use batch generation to create multiple options
 6. **Rate Everything**: Use the rating system to track what works best
+
+### AI Generation Tips
+1. **Be Specific in Descriptions**: "Playful xylophone melody for a cooking show intro" works better than "upbeat music"
+2. **Use the Duration Slider**: Let AI calculate the right number of sections for your target length
+3. **Select Multiple Instruments**: Gives AI more options for variety
+4. **Generate Multiple Variations**: Different structural approaches can surprise you
+5. **Iterate**: Use a generated variation as a starting point, then manually refine
+6. **Set Tags First**: Style/exclude tags help guide AI generation
 
 ## Contributing
 

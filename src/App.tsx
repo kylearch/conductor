@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TagInput from './components/TagInput';
 import StructureBuilder from './components/StructureBuilder';
 import LyricPromptEditor from './components/LyricPromptEditor';
 import GenerationHistory from './components/GenerationHistory';
-import { MusicGeneration, MusicSection, Preset } from './types';
+import AIConfig from './components/AIConfig';
+import AIGenerator from './components/AIGenerator';
+import { MusicGeneration, MusicSection, Preset, LLMConfig, AIGenerationParams } from './types';
 import {
   PRESETS,
   STYLE_TAG_SUGGESTIONS,
   EXCLUDE_TAG_SUGGESTIONS,
 } from './presets';
+import { LLMService, testConnection } from './services/llmService';
 import './App.css';
+
+const STORAGE_KEY = 'conductor-llm-config';
 
 function App() {
   const [name, setName] = useState('');
@@ -23,6 +28,32 @@ function App() {
   const [lyricPrompt, setLyricPrompt] = useState('');
   const [generations, setGenerations] = useState<MusicGeneration[]>([]);
   const [batchCount, setBatchCount] = useState(1);
+
+  // LLM Configuration State
+  const [llmConfig, setLlmConfig] = useState<LLMConfig>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        return JSON.parse(saved);
+      }
+    } catch (error) {
+      console.error('Failed to load LLM config:', error);
+    }
+    return {
+      provider: 'openai',
+      apiKey: '',
+      model: 'gpt-4o-mini',
+    };
+  });
+
+  // Save LLM config to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(llmConfig));
+    } catch (error) {
+      console.error('Failed to save LLM config:', error);
+    }
+  }, [llmConfig]);
 
   const loadPreset = (preset: Preset) => {
     setCategory(preset.category);
@@ -65,6 +96,24 @@ function App() {
     setGenerations(generations.filter((gen) => gen.id !== id));
   };
 
+  const handleTestConnection = async (): Promise<boolean> => {
+    return testConnection(llmConfig);
+  };
+
+  const handleAIGenerate = async (params: AIGenerationParams): Promise<MusicSection[][]> => {
+    const service = new LLMService(llmConfig);
+    return service.generatePromptVariations(params);
+  };
+
+  const handleSelectVariation = (variation: MusicSection[]) => {
+    setSections([...variation]);
+    // Auto-generate lyric prompt from selected variation
+    const prompt = variation
+      .map((section) => `[${section.type} | ${section.instrument}]`)
+      .join('\n');
+    setLyricPrompt(prompt);
+  };
+
   const canGenerate = styleTags.length > 0 && sections.length > 0 && lyricPrompt.trim() !== '';
 
   return (
@@ -103,6 +152,20 @@ function App() {
                 <option value="Lullaby">Lullaby</option>
               </select>
             </div>
+
+            <AIConfig
+              config={llmConfig}
+              onConfigChange={setLlmConfig}
+              onTest={handleTestConnection}
+            />
+
+            <AIGenerator
+              category={category}
+              styleTags={styleTags}
+              excludeTags={excludeTags}
+              onGenerate={handleAIGenerate}
+              onSelectVariation={handleSelectVariation}
+            />
 
             <div className="presets-section">
               <h3>Quick Start Presets</h3>
